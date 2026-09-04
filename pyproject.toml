@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "emburden"
+version = "0.1.0"
+description = "Python meta-package for the emburden R ecosystem — household energy-burden analytics via rpy2 shim"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+  {name = "Eric Scheier", email = "hello@emrgi.com"}
+]
+maintainers = [
+  {name = "Eric Scheier", email = "hello@emrgi.com"}
+]
+keywords = [
+  "energy", "energy-poverty", "climate-justice", "microsimulation",
+  "household-energy", "spatial-synthesis", "reproducible-research"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: R",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: GIS",
+  "Topic :: Scientific/Engineering :: Information Analysis"
+]
+dependencies = [
+  "pandas>=1.5",
+  "pyarrow>=10",
+  "PyYAML>=6"
+]
+
+[project.optional-dependencies]
+r = [
+  "rpy2>=3.5"                # heavy dep; only needed for pipeline calls
+]
+data = [
+  "emburden-data>=0.1"       # sister package for pure-Python data access
+]
+all = [
+  "rpy2>=3.5",
+  "emburden-data>=0.1"
+]
+dev = [
+  "pytest>=7",
+  "pytest-cov>=4",
+  "ruff>=0.5",
+  "build>=1",
+  "twine>=5"
+]
+
+[project.urls]
+Homepage      = "https://emburden.org"
+Documentation = "https://emburden.org/code.html"
+Repository    = "https://github.com/ericscheier/emburden-py"
+"Bug Tracker" = "https://github.com/ericscheier/emburden-py/issues"
+"R ecosystem" = "https://github.com/ericscheier"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+emburden = ["*.yml", "*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra --strict-markers"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
